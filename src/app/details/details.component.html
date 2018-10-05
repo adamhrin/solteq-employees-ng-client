@@ -3,6 +3,8 @@
 
   <app-employee-form [employee]="employee$" [isAddingMode]="false"></app-employee-form>
 
+  <h2>Salaries</h2>
+
   <div *ngIf="employee$.salaries !== undefined">
     <app-data-table [source]="employee$.salaries"></app-data-table>
   </div>

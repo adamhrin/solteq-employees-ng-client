@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { ActivatedRoute } from '@angular/router'
 import { Employee } from '../models/employee';
+import { YearSalary } from '../models/yearSalary';
 
 @Component({
   selector: 'app-details',
@@ -20,7 +21,13 @@ export class DetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.data.getEmployee(this.employee$.id).subscribe(data => this.employee$ = data);
+    this.data.getEmployee(this.employee$.id).subscribe(data => {
+      console.log(data.constructor.name);
+      this.employee$ = data;
+      console.log(this.employee$);
+      console.log(this.employee$.constructor.name);
+    });
+    
   }
 
 }

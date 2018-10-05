@@ -16,19 +16,13 @@ export class EmployeesComponent implements OnInit {
 
   ngOnInit() {
     console.log("employees ngOnInit() called");
-    this.data.getEmployees().subscribe(
-      data => this.employees$ = data
-    );
-  }
-
-  onAddEmployeeClicked() {
-    console.log("adding empl");
+    this.data.getEmployees().subscribe(data => this.employees$ = data);
   }
 
   onDeleteClicked(employee: Employee) {
     if(confirm("Are you sure you want to delete this employee?")) {
       this.employees$ = this.employees$.filter(e => e !== employee);
-      this.data.deleteEmployee(employee).subscribe();
+      this.data.deleteEmployee(employee.id).subscribe();
     }
   }
 

@@ -23,7 +23,14 @@ export class EmployeeFormComponent implements OnInit {
    */
   onSubmit() {
     if (this.isAddingMode) {
-      //TODO add employee
+      this.data.addEmployee(this.employee)
+      .subscribe(
+        () => {
+          console.log("Employee added");
+          this.location.back();
+        },
+        () => { console.log("Failed to add employee") }
+      );
     } else {
       this.data.updateEmployee(this.employee)
       .subscribe(

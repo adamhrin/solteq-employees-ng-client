@@ -1,3 +1,7 @@
-<p>
-  add-employee works!
-</p>
+<div *ngIf="employee">
+
+  <h1>Add Employee</h1>
+
+  <app-employee-form [employee]="employee" [isAddingMode]="true"></app-employee-form>
+  
+</div>

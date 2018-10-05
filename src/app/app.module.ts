@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // <- NgModel lives here
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // <- NgModel lives here
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,10 +13,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EmployeesComponent } from './employees/employees.component';
 import { TableSalaryComponent } from './table-salary/table-salary.component';
-import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { MatTableModule, MatPaginatorModule, MatSortModule, 
+  MatButtonModule, MatDialogModule, MatIconModule, MatInputModule,
+  MatFormFieldModule } from '@angular/material';
 import { DataTableComponent } from './data-table/data-table.component';
 import { EmployeeFormComponent } from './employee-form/employee-form.component';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
+import { AddSalaryDialogComponent } from './add-salary-dialog/add-salary-dialog.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,8 @@ import { AddEmployeeComponent } from './add-employee/add-employee.component';
     TableSalaryComponent,
     DataTableComponent,
     EmployeeFormComponent,
-    AddEmployeeComponent
+    AddEmployeeComponent,
+    AddSalaryDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +43,16 @@ import { AddEmployeeComponent } from './add-employee/add-employee.component';
     FormsModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatIconModule,
+    MatInputModule,
+    MatFormFieldModule,
+    ReactiveFormsModule
+  ],
+  entryComponents: [
+    AddSalaryDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { EMPLOYEES } from './mock-data';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { Employee } from './models/employee';
-import { tap, catchError } from 'rxjs/operators';
+import { tap, catchError, map } from 'rxjs/operators';
+import { environment } from '../environments/environment';
+import { YearSalary } from './models/yearSalary';
+import { ITableDataItem } from './ITableDataItem';
 
-const httpOptions = {
+const HTTP_OPTIONS = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
@@ -14,7 +16,12 @@ const httpOptions = {
 })
 export class DataService {
 
-  private url = 'https://localhost:44302/api/Employees';
+  private baseUrl = environment.ApiBaseUrl;
+  private employeesUrl = this.baseUrl + 'api/Employees';
+
+  dataChange: BehaviorSubject<ITableDataItem[]> = new BehaviorSubject<ITableDataItem[]>([]);
+  // Temporarily stores data from dialogs
+  dialogData: ITableDataItem;
 
   constructor(private http: HttpClient) { }
 
@@ -22,37 +29,85 @@ export class DataService {
    * GET employees from the server
    */
   getEmployees(): Observable<Employee[]> {
-    // TODO change 'values' to 'employees'
-    return this.http.get<Employee[]>(this.url)
+    return this.http.get<Employee[]>(this.employeesUrl)
       .pipe(
-        tap(employees => this.log('fetched employees')),
+        map(data => {
+          let employees: Employee[] = [];
+          let i = 0;
+          data.forEach(employee => {
+            employees[i] = new Employee(employee);
+            i++;
+          });
+          this.log('fetched employees');
+          return employees;
+        }),
         catchError(this.handleError('getEmployees', []))
       );
-    
   }
 
+  /**
+   * GET employee from the server
+   * @param employeeId 
+   */
   getEmployee(employeeId): Observable<Employee> {
-    return this.http.get<Employee>(`${this.url}/${employeeId}`)
+    return this.http.get<Employee>(`${this.employeesUrl}/${employeeId}`)
       .pipe(
-        tap(_ => this.log(`fetched employee id=${employeeId}`)),
+        map(data => {
+          return new Employee(data);
+        }),
         catchError(this.handleError<Employee>(`getHero id=${employeeId}`))
       );
   }
 
-  updateEmployee(employee: Employee) {
-    return of(EMPLOYEES[0]);
-    // return this.http.delete(
-    //   this.baseUrl + "/" + id,
-    //   { headers: this.getCommonHeaders() }
-    // ).pipe(
-    //   map(res => res.json()),
-    //   catchError (this.handleErrors)
-    // );
+  /**
+   * PUSH new employee to server
+   */
+  addEmployee(employee: Employee) {
+    return this.http.post<Employee>(this.employeesUrl, employee, HTTP_OPTIONS)
+      .pipe(
+        tap((employee: Employee) => this.log(`added employee w/ id=${employee.id}`)),
+        catchError(this.handleError<Employee>(`addEmployee id=${employee.id}`))
+      );
   }
-  
-  deleteEmployee(employee: Employee): Observable<Employee> {
+
+  /**
+   * PUT the employee to the server
+   * @param employee 
+   */
+  updateEmployee(employee: Employee) {
+    return this.http.put(`${this.employeesUrl}/${employee.id}`, employee, HTTP_OPTIONS)
+      .pipe(
+        tap(_ => this.log(`updated employee id=${employee.id}`)),
+        catchError(this.handleError<any>(`updateEmployee id=${employee.id}`))
+    );
+  }
+   /**
+    * DELETE employee with this id
+    */
+  deleteEmployee(employee: Employee | number): Observable<Employee> {
+    const id = typeof employee === 'number' ? employee : employee.id;
+
+    return this.http.delete<Employee>(`${this.employeesUrl}/${id}`, HTTP_OPTIONS).pipe(
+      tap(_ => this.log(`deleted employee id=${id}`)),
+      catchError(this.handleError<Employee>(`deleteEmployee id=${id}`))
+    );
+  }
+
+  /**
+   * to get data from dialog after it was submitted
+   */
+  getDialogData() {
+    return this.dialogData;
+  }
+
+  /**
+   * PUSH new YearSalary for Employee according to id
+   * sets dialogData to new item
+   */
+  addYearSalary(yearSalary: YearSalary) {
     //TODO
-    return of(new Employee());
+    console.log("service addYearSalary()" + yearSalary);
+    this.dialogData = yearSalary;
   }
 
   getPosts(): Observable<Object> {

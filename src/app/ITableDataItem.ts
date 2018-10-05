@@ -1,1 +1,3 @@
-export interface ITableDataItem {}
+export interface ITableDataItem {
+    getSearchString(): string;
+}

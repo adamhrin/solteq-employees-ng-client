@@ -1,0 +1,17 @@
+<div *ngIf="employee$">
+  <h1>Edit Employee</h1>
+
+  <app-employee-form [employee]="employee$" [isAddingMode]="false"></app-employee-form>
+
+  <div *ngIf="employee$.salaries !== undefined">
+    <app-data-table [source]="employee$.salaries"></app-data-table>
+  </div>
+  
+  <div *ngIf="employee$.salaries === undefined">
+    No Salaries for {{ employee$.name }}
+  </div>
+  
+</div>
+  
+
+

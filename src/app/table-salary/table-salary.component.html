@@ -1,0 +1,83 @@
+<div class="mat-elevation-z8 data-table">
+
+  <table mat-table #table [dataSource]="dataSource" matSort aria-label="Elements">
+    
+    <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+    <ng-container matColumnDef="year">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Year</th>
+      <td mat-cell *matCellDef="let row">{{ row.year }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="jan">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Jan</th>
+      <td mat-cell *matCellDef="let row">{{ row.jan }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="feb">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Feb</th>
+      <td mat-cell *matCellDef="let row">{{ row.feb }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="mar">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Mar</th>
+      <td mat-cell *matCellDef="let row">{{ row.mar }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="apr">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Apr</th>
+      <td mat-cell *matCellDef="let row">{{ row.apr }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="may">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>May</th>
+      <td mat-cell *matCellDef="let row">{{ row.may }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="jun">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Jun</th>
+      <td mat-cell *matCellDef="let row">{{ row.jun }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="jul">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Jul</th>
+      <td mat-cell *matCellDef="let row">{{ row.jul }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="aug">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Aug</th>
+      <td mat-cell *matCellDef="let row">{{ row.aug }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="sep">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Sep</th>
+      <td mat-cell *matCellDef="let row">{{ row.sep }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="okt">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Okt</th>
+      <td mat-cell *matCellDef="let row">{{row.okt}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="nov">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nov</th>
+        <td mat-cell *matCellDef="let row">{{ row.nov }}</td>
+      </ng-container>
+
+    <ng-container matColumnDef="dec">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Dec</th>
+      <td mat-cell *matCellDef="let row">{{row.dec}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator
+    [length]="dataSource.data.length"
+    [pageIndex]="0"
+    [pageSize]="50"
+    [pageSizeOptions]="[1, 25, 50, 100, 250]">
+  </mat-paginator>
+</div>

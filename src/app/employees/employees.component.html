@@ -1,0 +1,19 @@
+<h1>
+  Employees
+  <a routerLink="/add">
+    <i class="material-icons right" (click)="onAddEmployeeClicked()">add</i>
+  </a>
+</h1>
+
+<ul>
+  <li *ngFor="let employee of employees$">
+    <span>
+      <a routerLink="/details/{{ employee.id }}">{{ employee.name }}</a>
+      <i class="material-icons right" (click)="onDeleteClicked(employee)">delete</i>
+    </span>
+    <ul>
+      <li>{{ employee.email }}</li>
+      <li>{{ employee.phone }}</li>
+    </ul>
+  </li>
+</ul>

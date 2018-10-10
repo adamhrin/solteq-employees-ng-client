@@ -1,0 +1,72 @@
+<div class="container">
+  <h3 mat-dialog-title>{{ data.title }}</h3>
+
+  <form class="mat-dialog-content" (ngSubmit)="onSubmit" #formControl="ngForm">
+    
+    <div class="form" *ngFor="let option of data.options">
+      <mat-form-field color="accent">
+        <input matInput class="form-control" 
+          [placeholder]="option.placeholder" 
+          [(ngModel)]="data.data[option.colKey]" 
+          [name]="option.colKey"
+          [required]="option.required" [type]="option.type">
+        <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- <div class="form" *ngFor="let item of data.">
+      <mat-form-field color="accent">
+        <input matInput #input class="form-control" placeholder="Year" [(ngModel)]="data.year" name="year" required>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div> -->
+
+    <!--Textarea for demo purposes-->
+    <!-- <div class="form">
+      <mat-form-field color="accent">
+        <textarea matInput #input class="form-control" placeholder="January" [(ngModel)]="data.jan" name="jan" required></textarea>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div> -->
+
+    <!--Contains mat-hint for characters count and has maxLengt set-->
+    <!-- <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #inputstate class="form-control" placeholder="February" [(ngModel)]="data.feb" name="feb" maxlength="10" required>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        <mat-hint align="end">{{inputstate.value?.length || 0}}/10</mat-hint>
+      </mat-form-field>
+    </div> -->
+
+    <!-- <div class="form">
+      <mat-form-field color="accent">
+        <input matInput placeholder="March" [(ngModel)]="data.mar" name="mar">
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput placeholder="April" [(ngModel)]="data.apr" name="apr">
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput placeholder="May" [(ngModel)]="data.may" name="may">
+      </mat-form-field>
+    </div> -->
+
+    <div mat-dialog-actions>
+      <button mat-raised-button [disabled]="!formControl.valid" (click)="onSave()">Save</button>
+      <button mat-button mat-dialog-close tabindex="-1">Cancel</button>
+    </div>
+
+  </form>
+
+  <!-- <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button (click)=onSave()>Save</button>
+  </mat-dialog-actions> -->
+</div>
+
+

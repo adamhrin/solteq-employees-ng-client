@@ -1,0 +1,19 @@
+<table datatable id="datatable" 
+  [dtOptions]="dtOptions" 
+  [dtTrigger]="dtTrigger"
+  class="row-border hover">
+  <thead>
+    <tr>
+      <th *ngFor="let col of columns">{{ col }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of source">
+      <td *ngFor="let ck of colKeys">{{ item[ck] }}</td>
+      <td class="oneRow">
+        <button class="btn btn-link" (click)="onEditClicked(item)"><i class="material-icons">edit</i></button>
+        <button class="btn btn-link" (click)="onDeleteClicked(item)"><i class="material-icons danger">delete</i></button>
+      </td>
+    </tr>
+  </tbody>
+</table>

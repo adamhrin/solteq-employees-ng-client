@@ -1,0 +1,46 @@
+<form (ngSubmit)="onSubmit()" #salaryForm="ngForm">
+  <div *ngFor="let item of colKeys" class="form-group">
+      <label for="year">Year</label>
+      <input type="number" class="form-control" id="year" required
+        [(ngModel)]="item.year" name="year" #year="ngModel">
+      <div [hidden]="year.valid || year.pristine"
+        class="alert alert-danger">
+          Year is required
+      </div>
+  </div>
+
+
+  <!-- <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name" required
+      [(ngModel)]="employee.name" name="name" #name="ngModel">
+    <div [hidden]="name.valid || name.pristine"
+      class="alert alert-danger">
+        Name is required
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" class="form-control" id="email" required
+      [(ngModel)]="employee.email" name="email" #email="ngModel">
+    <div [hidden]="email.valid || email.pristine"
+      class="alert alert-danger">
+        Email is required
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="phone">Phone</label>
+    <input type="text" class="form-control" id="phone" required
+      [(ngModel)]="employee.phone" name="phone" #phone="ngModel">
+    <div [hidden]="phone.valid || phone.pristine"
+      class="alert alert-danger">
+        Phone is required
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-link" (click)="onBack()">Back</button>
+  <button type="submit" class="btn btn-primary" [disabled]="!employeeForm.form.valid">Save</button> -->
+
+</form>

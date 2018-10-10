@@ -3,14 +3,19 @@
 
   <app-employee-form [employee]="employee$" [isAddingMode]="false"></app-employee-form>
 
-  <h2>Salaries</h2>
+  <h2>
+    Salaries
+    <button class="btn btn-primary" (click)="onAddSalary()">New salary</button>
+  </h2>
 
   <div *ngIf="employee$.salaries !== undefined">
-    <app-data-table [source]="employee$.salaries"></app-data-table>
+    <app-datatable [source]="employee$.salaries" 
+      [columns]="columns" [colKeys]="colKeys"
+      (editEmitter)="onEditSalary($event)" (deleteEmitter)="onDeleteSalary($event)"></app-datatable>
   </div>
   
   <div *ngIf="employee$.salaries === undefined">
-    No Salaries for {{ employee$.name }}
+    No Salaries
   </div>
   
 </div>

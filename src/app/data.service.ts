@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Employee } from './models/employee';
 import { tap, catchError, map } from 'rxjs/operators';
 import { environment } from '../environments/environment';
 import { YearSalary } from './models/yearSalary';
-import { ITableDataItem } from './ITableDataItem';
 
 const HTTP_OPTIONS = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -18,12 +17,13 @@ export class DataService {
 
   private baseUrl = environment.ApiBaseUrl;
   private employeesUrl = this.baseUrl + 'api/Employees';
-
-  dataChange: BehaviorSubject<ITableDataItem[]> = new BehaviorSubject<ITableDataItem[]>([]);
-  // Temporarily stores data from dialogs
-  dialogData: ITableDataItem;
+  private salaryUrl = this.baseUrl + 'api/YearSalaries';
 
   constructor(private http: HttpClient) { }
+
+
+  // #region EMPLOYEE
+
 
   /**
    * GET employees from the server
@@ -32,16 +32,10 @@ export class DataService {
     return this.http.get<Employee[]>(this.employeesUrl)
       .pipe(
         map(data => {
-          let employees: Employee[] = [];
-          let i = 0;
-          data.forEach(employee => {
-            employees[i] = new Employee(employee);
-            i++;
-          });
           this.log('fetched employees');
-          return employees;
+          return data;
         }),
-        catchError(this.handleError('getEmployees', []))
+        catchError(this.handleError('getEmployees()', []))
       );
   }
 
@@ -53,34 +47,38 @@ export class DataService {
     return this.http.get<Employee>(`${this.employeesUrl}/${employeeId}`)
       .pipe(
         map(data => {
-          return new Employee(data);
+          return data;
         }),
-        catchError(this.handleError<Employee>(`getHero id=${employeeId}`))
+        catchError(this.handleError<Employee>(`getHero() id=${employeeId}`))
       );
   }
 
   /**
-   * PUSH new employee to server
+   * POST new employee to server
    */
   addEmployee(employee: Employee) {
     return this.http.post<Employee>(this.employeesUrl, employee, HTTP_OPTIONS)
       .pipe(
         tap((employee: Employee) => this.log(`added employee w/ id=${employee.id}`)),
-        catchError(this.handleError<Employee>(`addEmployee id=${employee.id}`))
+        catchError(this.handleError<Employee>(`addEmployee() id=${employee.id}`))
       );
   }
 
   /**
    * PUT the employee to the server
-   * @param employee 
+   * @param employee
    */
   updateEmployee(employee: Employee) {
-    return this.http.put(`${this.employeesUrl}/${employee.id}`, employee, HTTP_OPTIONS)
+    // here I update only personal info about employee => no need to send salaries
+    employee.salaries = [];
+    console.log(JSON.stringify(employee));
+    return this.http.put<Employee>(`${this.employeesUrl}/${employee.id}`, employee, HTTP_OPTIONS)
       .pipe(
         tap(_ => this.log(`updated employee id=${employee.id}`)),
-        catchError(this.handleError<any>(`updateEmployee id=${employee.id}`))
+        catchError(this.handleError<any>(`updateEmployee() id=${employee.id}`))
     );
   }
+
    /**
     * DELETE employee with this id
     */
@@ -89,26 +87,64 @@ export class DataService {
 
     return this.http.delete<Employee>(`${this.employeesUrl}/${id}`, HTTP_OPTIONS).pipe(
       tap(_ => this.log(`deleted employee id=${id}`)),
-      catchError(this.handleError<Employee>(`deleteEmployee id=${id}`))
+      catchError(this.handleError<Employee>(`deleteEmployee() id=${id}`))
+    );
+  }
+
+  // #endregion EMPLOYEE
+
+  // #region SALARY
+
+  /**
+   * POST new yearSalary to server
+   */
+  addSalary(salary: YearSalary) {
+    console.log(JSON.stringify(salary));
+    return this.http.post<YearSalary>(this.salaryUrl, salary, HTTP_OPTIONS)
+      .pipe(
+        map((newRow: YearSalary) => {
+          this.log(`added salary w/ year=${newRow.year}, idEmployee=${newRow.idEmployee}`);
+          return newRow;
+        }),
+        catchError(this.handleError<YearSalary>(`addEmployee() year=${salary.year}, idEmployee=${salary.idEmployee}`))
+      );
+  }
+
+  /**
+   * PUT the salary to the server
+   * @param salary 
+   */
+  updateSalary(salary: YearSalary, oldYear: number) {
+    // if user doesn’t enter any value, that value will become "" (empty string)
+    // here I set this value to 0, so it can be stored to db
+    Object.keys(salary).forEach(key => {
+      if(salary[key] === "") {
+        salary[key] = 0;
+      }
+    });
+
+    return this.http.put<YearSalary>(`${this.salaryUrl}/${oldYear}/${salary.idEmployee}`, salary, HTTP_OPTIONS)
+      .pipe(
+        map((updatedRow: YearSalary) => {
+          this.log(`updated salary oldYear=${oldYear}, newYear=${updatedRow.year}, idEmployee=${updatedRow.idEmployee}`);
+          return updatedRow;
+        }),
+        catchError(this.handleError<YearSalary>(`updateSalary() oldYear=${oldYear}, newYear=${salary.year}, idEmployee=${salary.idEmployee}`))
     );
   }
 
   /**
-   * to get data from dialog after it was submitted
-   */
-  getDialogData() {
-    return this.dialogData;
+    * DELETE salary with this year and idEmployee
+    */
+   deleteSalary(salary: YearSalary): Observable<YearSalary> {
+    return this.http.delete<YearSalary>(`${this.salaryUrl}/${salary.year}/${salary.idEmployee}`, HTTP_OPTIONS)
+    .pipe(
+      tap(_ => this.log(`deleted salary year=${salary.year}, idEmployee=${salary.idEmployee}`)),
+      catchError(this.handleError<YearSalary>(`deleteSalary() year=${salary.year}, idEmployee=${salary.idEmployee}`))
+    );
   }
 
-  /**
-   * PUSH new YearSalary for Employee according to id
-   * sets dialogData to new item
-   */
-  addYearSalary(yearSalary: YearSalary) {
-    //TODO
-    console.log("service addYearSalary()" + yearSalary);
-    this.dialogData = yearSalary;
-  }
+  // #endregion SALARY
 
   getPosts(): Observable<Object> {
     return this.http.get('https://jsonplaceholder.typicode.com/posts');

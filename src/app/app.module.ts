@@ -21,6 +21,14 @@ import { EmployeeFormComponent } from './employee-form/employee-form.component';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { AddSalaryDialogComponent } from './add-salary-dialog/add-salary-dialog.component';
 
+import { DataTablesModule } from 'angular-datatables';
+import { DatatableComponent } from './datatable/datatable.component';
+
+import { NgTableComponent, NgTableFilteringDirective, NgTablePagingDirective, NgTableSortingDirective } from 'ngx-datatable/ng2-table';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { SalaryFormComponent } from './salary-form/salary-form.component';
+import { MyDialogComponent } from './my-dialog/my-dialog.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +41,12 @@ import { AddSalaryDialogComponent } from './add-salary-dialog/add-salary-dialog.
     DataTableComponent,
     EmployeeFormComponent,
     AddEmployeeComponent,
-    AddSalaryDialogComponent
+    AddSalaryDialogComponent,
+    DatatableComponent,
+    NgTableComponent,
+    NgTableFilteringDirective, 
+    NgTablePagingDirective, 
+    NgTableSortingDirective, SalaryFormComponent, MyDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -49,12 +62,13 @@ import { AddSalaryDialogComponent } from './add-salary-dialog/add-salary-dialog.
     MatIconModule,
     MatInputModule,
     MatFormFieldModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DataTablesModule,
+    PaginationModule.forRoot()
   ],
   entryComponents: [
-    AddSalaryDialogComponent
+    MyDialogComponent
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

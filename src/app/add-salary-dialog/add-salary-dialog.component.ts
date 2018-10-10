@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { YearSalary } from '../models/yearSalary';
-import { DataService } from '../data.service';
 import { FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -12,8 +11,7 @@ import { FormControl, Validators } from '@angular/forms';
 export class AddSalaryDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<AddSalaryDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: YearSalary,
-              public dataService: DataService) { }
+              @Inject(MAT_DIALOG_DATA) public data: YearSalary) { }
 
   ngOnInit() { }
 
@@ -38,7 +36,6 @@ export class AddSalaryDialogComponent implements OnInit {
 
   public confirmAdd(): void {
     console.log(this.data);
-    this.dataService.addYearSalary(this.data);
   }
 
 }

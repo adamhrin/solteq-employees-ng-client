@@ -47,7 +47,6 @@ export class DataTableComponent implements OnInit {
       if (result === 1) {
         // After dialog is closed we're doing frontend updates
         // For add we're just pushing a new row inside DataService
-        this.source.push(this.data.getDialogData());
         this.refreshTable();
       }
     });

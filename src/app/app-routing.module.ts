@@ -4,6 +4,7 @@ import { DetailsComponent } from './details/details.component';
 import { PostsComponent } from './posts/posts.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { AddEmployeeComponent } from './add-employee/add-employee.component'
+import { SalaryFormComponent } from './salary-form/salary-form.component';
 
 const routes: Routes = [
   { path: '', component: EmployeesComponent },

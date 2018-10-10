@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge, BehaviorSubject } from 'rxjs';
 import { ITableDataItem } from '../ITableDataItem';
 import { Sorter } from '../sorter';
+import { SearchHelper } from '../searchHelper';
 
   /**
    * Data source for the TableSalary view. This class should
@@ -55,7 +56,7 @@ import { Sorter } from '../sorter';
       return merge(...dataMutations).pipe(map(() => {
         // Filter data
         this.filteredData = this.data.slice().filter((item: ITableDataItem) => {
-          const searchStr = item.getSearchString().toLowerCase();
+          const searchStr = SearchHelper.getSearchStringForEmployee(item).toLowerCase();
           return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
         });
 

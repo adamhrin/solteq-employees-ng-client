@@ -16,18 +16,15 @@ export class MyDialogComponent implements OnInit {
   }
 
   formControl = new FormControl('', [
-    Validators.required,
-    // Validators.email
+    Validators.required
   ]);
 
   getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Required field' :
-      this.formControl.hasError('email') ? 'Not a valid email' :
-        '';
+    return this.formControl.hasError('required') ? 'Required field' : '';
   }
 
   onSubmit() {
-    // empty stuff
+    // not used
   }
 
   onSave() {
@@ -39,7 +36,7 @@ export class MyDialogComponent implements OnInit {
       if (this.data.otherYears.indexOf(+this.data.data.year) > -1) {
         alert("Salary for given year already exists");
       } else {
-        console.log("dialog onSave() successful => going to save");
+        // onSave() successful => going to save");
         this.dialogRef.close(this.data);
       }
     }

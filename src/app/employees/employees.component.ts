@@ -20,6 +20,8 @@ export class EmployeesComponent implements OnInit {
   constructor(private data: DataService, 
               private observableService: ObservableService,
               private router: Router) { 
+    
+    
     //converts columns to column keys by lower-casing the strings
     let i = 0;
     this.columns.forEach(element => {
@@ -31,7 +33,6 @@ export class EmployeesComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("employees ngOnInit() called");
     this.data.getEmployees().subscribe(data => this.employees$ = data);
   }
 
@@ -40,7 +41,6 @@ export class EmployeesComponent implements OnInit {
   }
 
   onDeleteEmployee(employee: Employee) {
-    console.log("employeesComponent onDeleteEmployee()");
     if(confirm("Are you sure you want to delete this employee?")) {
       this.data.deleteEmployee(employee.id)
         .subscribe(

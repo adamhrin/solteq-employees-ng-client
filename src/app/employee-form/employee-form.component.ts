@@ -26,7 +26,6 @@ export class EmployeeFormComponent implements OnInit {
       this.data.addEmployee(this.employee)
       .subscribe(
         () => {
-          console.log("Employee added");
           this.location.back();
         },
         () => { console.log("Failed to add employee") }
@@ -35,7 +34,6 @@ export class EmployeeFormComponent implements OnInit {
       this.data.updateEmployee(this.employee)
       .subscribe(
         () => {
-          console.log("Employee updated");
           this.location.back();
         },
         () => { console.log("Failed to update employee") }

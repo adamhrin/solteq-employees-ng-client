@@ -1,0 +1,38 @@
+<div class="text-center">
+  <h1>Solteq Employee System</h1>
+</div>
+<br>
+<div class="login-wrapper"> 
+  <h2 class="text-center">Login</h2>
+
+  <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" class="form-control" id="username" required
+        [(ngModel)]="user.username" name="username" #username="ngModel">
+      <div [hidden]="username.valid || username.pristine"
+        class="alert alert-danger">
+          Username is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" required
+        [(ngModel)]="user.password" name="password" #password="ngModel">
+      <div [hidden]="password.valid || password.pristine"
+        class="alert alert-danger">
+          Password is required
+      </div>
+    </div>
+
+    <div [hidden]="!isWrongLoginData"
+        class="alert alert-danger">
+          Wrong username or password
+      </div>
+
+    <button type="submit" class="w-100 btn btn-primary " [disabled]="!userForm.form.valid">Login</button>
+
+  </form>
+</div>
+

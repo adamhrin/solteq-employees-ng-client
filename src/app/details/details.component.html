@@ -1,10 +1,12 @@
 <div *ngIf="employee$">
   <h1>Edit Employee</h1>
-
+  
   <app-employee-form [employee]="employee$" [isAddingMode]="false"></app-employee-form>
-
+  <br>
+  <mat-divider></mat-divider>
+  <br>
   <h2>
-    Salaries
+    Salaries (€)
     <button class="btn btn-primary" (click)="onAddSalary()">New salary</button>
   </h2>
 
@@ -15,7 +17,7 @@
   </div>
   
   <div *ngIf="employee$.salaries === undefined">
-    No Salaries
+    <mat-spinner></mat-spinner>
   </div>
   
 </div>

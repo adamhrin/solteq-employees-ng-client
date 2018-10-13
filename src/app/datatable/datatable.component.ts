@@ -34,12 +34,11 @@ export class DatatableComponent implements AfterViewInit, OnDestroy, OnInit {
   ngOnInit() {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 10
-      // ,
-      // dom: 'Bfrtip',
-      // buttons: [
-      //   'excel'
-      // ]
+      pageLength: 10,
+      dom: 'Bfrtip',
+      buttons: [
+        'excel'
+      ]
     };
     // listen to observableService to broadcast data after some change
     this.subscription = this.observableService.subjectToBroadcast$

@@ -1,9 +1,11 @@
 <h1>
-  Employees
+  Employees 
   <a routerLink="/add">
     <button class="btn btn-primary">New employee</button>
   </a>
 </h1>
+  
+
 
 <div *ngIf="employees$ !== undefined">
   <app-datatable [source]="employees$" 
@@ -12,18 +14,5 @@
 </div>
 
 <div *ngIf="employees$ === undefined">
-  No Employees
+  <mat-spinner></mat-spinner>
 </div>
-
-<!-- <ul>
-  <li *ngFor="let employee of employees$">
-    <span>
-      <a routerLink="/details/{{ employee.id }}">{{ employee.name }}</a>
-      <i class="material-icons right" (click)="onDeleteClicked(employee)">delete</i>
-    </span>
-    <ul>
-      <li>{{ employee.email }}</li>
-      <li>{{ employee.phone }}</li>
-    </ul>
-  </li>
-</ul> -->

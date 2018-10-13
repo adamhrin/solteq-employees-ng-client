@@ -1,6 +1,4 @@
-import { ITableDataItem } from "../ITableDataItem";
-
-export class YearSalary implements ITableDataItem {
+export class YearSalary {
 
     //which year it is
     year: number;

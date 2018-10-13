@@ -19,7 +19,6 @@ enum DialogType {
 })
 export class DetailsComponent implements OnInit {
   
-  
   employee$: Employee = new Employee();
   columns = ['Year', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec', 'Actions'];
   colKeys = [];
@@ -101,7 +100,6 @@ export class DetailsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       // don’t do anything if it was closed without saving (result==undefined)
       if (result) {
         if (type == DialogType.EDIT) {

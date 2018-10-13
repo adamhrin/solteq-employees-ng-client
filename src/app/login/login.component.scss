@@ -1,0 +1,15 @@
+.ng-valid[required], .ng-valid.required  {
+    border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+    border-left: 5px solid #a94442; /* red */
+}
+.login-wrapper {
+    width: 400px;
+    margin: auto;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 10px;
+    background-color:  white;
+}

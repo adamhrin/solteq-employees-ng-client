@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');
+//@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import '~@angular/material/theming';
 
 @include mat-core();
@@ -13,65 +13,24 @@ $theme: mat-light-theme($primary, $accent, $warn);
 @include angular-material-theme($theme);
 
 
+
+html{
+    height: 100%;
+}
+
 body {
     margin: 0;
     background: #F2F2F2;
     font-family: 'Roboto', sans-serif;
-    height: 100vh;
+    height: 100%; 
 }
-
 
 #container {
    display: grid;
-   grid-template-columns: 70px auto;
+   grid-template-columns: min-content auto;
    height: 100%;
 
    #content {
-       padding: 30px 50px;
-
-    .right {
-        float: right;
-    }
-       
-    span {
-        display: inline;
-        i {
-            float: right
-        }
-    }
-
-       ul {
-           list-style-type: none;
-           margin:0;
-           padding:0;
-       
-           li {
-               background: #fff;
-               border-radius: 8px;
-               padding: 20px;
-               margin-bottom: 8px;
-       
-               a {
-                   font-size: 1.5em;
-                   text-decoration: none;
-                   font-weight: bold;
-                   color:#00A8FF;
-               }
-       
-               ul {
-                   margin-top: 20px;
-                   
-                   li {
-                       padding:0;
-       
-                       a {
-                           font-size: 1em;
-                           font-weight: 300;
-                       }
-                   }
-               }
-           }
-       }
+       padding: 30px 50px; // top/bottom right/left
    }
 }
-html, body { height: 100%; }

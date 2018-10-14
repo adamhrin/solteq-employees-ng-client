@@ -1,19 +1,21 @@
-<table class="table table-striped row-border hover" datatable id="datatable" 
-  [dtOptions]="dtOptions" 
-  [dtTrigger]="dtTrigger"
-  class="row-border hover">
-  <thead>
-    <tr>
-      <th *ngFor="let col of columns">{{ col }}</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of source">
-      <td *ngFor="let ck of colKeys">{{ item[ck] }}</td>
-      <td class="oneRow">
-        <button class="btn btn-link" (click)="onEditClicked(item)"><i class="material-icons">edit</i></button>
-        <button class="btn btn-link" (click)="onDeleteClicked(item)"><i class="material-icons danger">delete</i></button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-wrapper">
+  <table datatable class="table table-striped table-bordered dt-responsive"
+    [dtOptions]="dtOptions" 
+    [dtTrigger]="dtTrigger">
+    <thead>
+      <tr>
+        <th *ngFor="let col of columns">{{ col }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of source">
+        <td *ngFor="let ck of colKeys">{{ item[ck] }}</td>
+        <td class="d-flex justify-content-center oneRow pt-2 pb-0 my-0">
+          <button class="btn btn-link py-0 my-0" (click)="onEditClicked(item)"><i class="material-icons">edit</i></button>
+          <button class="btn btn-link py-0 my-0" (click)="onDeleteClicked(item)"><i class="material-icons danger">delete</i></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+

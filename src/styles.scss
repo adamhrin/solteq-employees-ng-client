@@ -12,8 +12,6 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
 @include angular-material-theme($theme);
 
-
-
 html{
     height: 100%;
 }
@@ -21,7 +19,6 @@ html{
 body {
     margin: 0;
     background: #F2F2F2;
-    font-family: 'Roboto', sans-serif;
     height: 100%; 
 }
 
@@ -33,4 +30,21 @@ body {
    #content {
        padding: 30px 50px; // top/bottom right/left
    }
+}
+
+// custom styling of datatable
+.dataTables_filter {
+    float: left;
+}
+.dataTables_length {
+    float: right;
+}
+.dataTables_info {
+    float: left;
+}
+.dataTables_paginate {
+    float: right;
+}
+.dt-button{
+    margin-bottom: 8px;   
 }

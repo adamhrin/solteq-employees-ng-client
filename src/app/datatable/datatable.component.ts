@@ -32,12 +32,32 @@ export class DatatableComponent implements AfterViewInit, OnDestroy, OnInit {
   constructor(private observableService: ObservableService) { }
 
   ngOnInit() {
+    // exclude last column Actions from export and print
+    var options = {columns: 'th:not(:last-child)'};
+    var btnClasses = 'btn btn-outline-success';
+    
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
-      dom: 'Bfrtip',
+      // Declare the use of the extension in the dom parameter
+      dom: 'Blftip',
+      // Configure the buttons
       buttons: [
-        'excel'
+        {
+          extend: 'excel',
+          className: btnClasses,
+          exportOptions: options
+        }, 
+        {
+          extend: 'csv',
+          className: btnClasses,
+          exportOptions: options
+        }, 
+        {
+          extend: 'print',
+          className: btnClasses,
+          exportOptions: options
+        },
       ]
     };
     // listen to observableService to broadcast data after some change

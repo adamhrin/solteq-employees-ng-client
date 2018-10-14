@@ -19,7 +19,7 @@ export class SalariesChartComponent {
   showXAxisLabel = true;
   xAxisLabel = 'Month';
   showYAxisLabel = true;
-  yAxisLabel = 'Average salary';
+  yAxisLabel = 'Average salary (€)';
 
   colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
